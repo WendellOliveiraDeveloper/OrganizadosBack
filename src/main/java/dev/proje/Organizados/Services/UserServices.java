@@ -42,6 +42,15 @@ public class UserServices {
         }
     }
 
+    public UserResponseDTO findByEmail(String email) {
+        Optional<UserModel> user = userRepository.findByEmail(email);
+        if(user.isPresent()) {
+            return userMapper.toDTO(user.get());
+        } else {
+            return null;
+        }
+    }
+
     public UserResponseDTO createUser(UserCreateDTO userCreateDTO) {
         UserModel user = userMapper.toEntity(userCreateDTO);
         user.setSenha(passwordEncoder.encode(user.getSenha()));

@@ -3,10 +3,10 @@ spring:
     name: Organizados
 
   datasource:
-    url: jdbc:mysql://localhost:3306/organizados_db?useSSL=false&serverTimezone=UTC
-    username: root
+    url: jdbc:postgresql://localhost:5432/organizados_db
+    username: postgres
     password: Gold20050404!
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
@@ -14,4 +14,4 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect

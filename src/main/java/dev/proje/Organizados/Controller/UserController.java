@@ -20,6 +20,11 @@ public class UserController {
         return userServices.findAll();
     }
 
+    @GetMapping("dados_user_email/{email}")
+    public ResponseEntity<UserResponseDTO> mostrarDadosUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userServices.findByEmail(email));
+    }
+
     @GetMapping("dados_user/{id}")
     public ResponseEntity<UserResponseDTO> mostrarDadosUser(@PathVariable Long id) {
         return ResponseEntity.ok(userServices.findById(id));
