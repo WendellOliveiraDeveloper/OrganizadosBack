@@ -15,8 +15,10 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
-        config.setAllowedOrigins(List.of("https://organizados-front.vercel.app"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:4200",
+                "https://organizados-front.vercel.app"
+        ));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
