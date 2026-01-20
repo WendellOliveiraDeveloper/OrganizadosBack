@@ -38,19 +38,11 @@ public class UserMapper {
         }
 
         if (dto.getEmail() != null && !dto.getEmail().trim().isEmpty()) {
-            user.setNome(dto.getEmail());
+            user.setEmail(dto.getEmail());
         }
 
         if (dto.getTelefone() != null && !dto.getTelefone().trim().isEmpty()) {
-            user.setNome(dto.getTelefone());
-        }
-    }
-
-    public void updatePasswordFromDTO(UserModel user, UserUpdatePasswordDTO dto) {
-        if (user == null || dto == null) return;
-
-        if (dto.getSenhaAtual() != null && !dto.getSenhaAtual().trim().isEmpty()) {
-            user.setSenha(dto.getNovaSenha());
+            user.setTelefone(dto.getTelefone());
         }
     }
 

@@ -1,12 +1,10 @@
 package dev.proje.Organizados.Services;
 
-import dev.proje.Organizados.DTO.UserCreateDTO;
-import dev.proje.Organizados.DTO.UserResponseDTO;
-import dev.proje.Organizados.DTO.UserUpdateDTO;
-import dev.proje.Organizados.DTO.UserUpdatePasswordDTO;
+import dev.proje.Organizados.DTO.*;
 import dev.proje.Organizados.Mapper.UserMapper;
 import dev.proje.Organizados.Model.UserModel;
 import dev.proje.Organizados.Repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,7 +33,7 @@ public class UserServices {
     public UserResponseDTO findById(Long id) {
         Optional<UserModel> user = userRepository.findById(id);
 
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             return userMapper.toDTO(user.get());
         } else {
             return null;
@@ -44,7 +42,7 @@ public class UserServices {
 
     public UserResponseDTO findByEmail(String email) {
         Optional<UserModel> user = userRepository.findByEmail(email);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             return userMapper.toDTO(user.get());
         } else {
             return null;
@@ -73,16 +71,13 @@ public class UserServices {
     }
 
     public UserResponseDTO atualizarSenha(Long id, UserUpdatePasswordDTO usuarioDTO) {
-        Optional<UserModel> usuarioExistente = userRepository.findById(id);
+        UserModel usuario = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        if (usuarioExistente.isPresent()) {
-            UserModel novaSenha = usuarioExistente.get();
-            userMapper.updatePasswordFromDTO(novaSenha, usuarioDTO);
-            UserModel usuarioAtualizado = userRepository.save(novaSenha);
+        String senhaCriptografada = passwordEncoder.encode(usuarioDTO.getNovaSenha());
+        usuario.setSenha(senhaCriptografada);
 
-            return userMapper.toDTO(usuarioAtualizado);
-        } else {
-            throw new RuntimeException("Usuário não encontrado para atualizar senha");
-        }
+        UserModel usuarioAtualizado = userRepository.save(usuario);
+        return userMapper.toDTO(usuarioAtualizado);
     }
 }
