@@ -11,17 +11,8 @@ public class UserUpdatePasswordDTO {
     public UserUpdatePasswordDTO() {
     }
 
-    public UserUpdatePasswordDTO(String senhaAtual, String novaSenha) {
-        this.setSenhaAtual(senhaAtual);
+    public UserUpdatePasswordDTO(String novaSenha) {
         this.setNovaSenha(novaSenha);
-    }
-
-    public @NotBlank String getSenhaAtual() {
-        return senhaAtual;
-    }
-
-    public void setSenhaAtual(String senhaAtual) {
-        this.senhaAtual = senhaAtual;
     }
 
     public String getNovaSenha() {
