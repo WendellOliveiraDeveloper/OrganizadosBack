@@ -37,6 +37,16 @@ public class TasksController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("get_all_late_task/{userId}")
+    public List<TasksResponseDTO> getAllLateTasksByUserId(@PathVariable Long userId) {
+        return services.listarTarefasAtrasadasPorUsuario(userId);
+    }
+
+    @GetMapping("get_late_tasks_count_by_user/{userId}")
+    public ResponseEntity<Long> getCountLateTasks(@PathVariable Long userId) {
+        return ResponseEntity.ok(services.getAllLateTaskCount(userId));
+    }
+
     @PostMapping("add_task")
     public ResponseEntity<TasksResponseDTO> createTask(@Valid @RequestBody TasksCreateDTO request) {
         TasksResponseDTO response = services.createTask(request);
