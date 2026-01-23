@@ -39,8 +39,19 @@ public class TasksServices {
                 .collect(Collectors.toList());
     }
 
+    public List<TasksResponseDTO> listarTarefasAtrasadasPorUsuario(Long userId) {
+        return repository.buscarTarefasAtrasadasPorUsuario(userId)
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
     public Long getAllTasksCount(Long userId) {
         return repository.countByUserId(userId);
+    }
+
+    public Long getAllLateTaskCount(Long userId) {
+        return repository.contarTarefasAtrasadasPorUsuario(userId);
     }
 
     public TasksResponseDTO findTaskByName(String nomeTarefa, Long userId) {
